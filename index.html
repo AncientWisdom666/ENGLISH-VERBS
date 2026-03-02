@@ -12,12 +12,12 @@
             background-color: #f5f5f5;
         }
         .correct {
-            border: 2px solid #198754;
-            background-color: #d1e7dd;
+            border: 2px solid #198754 !important;
+            background-color: #d1e7dd !important;
         }
         .incorrect {
-            border: 2px solid #dc3545;
-            background-color: #f8d7da;
+            border: 2px solid #dc3545 !important;
+            background-color: #f8d7da !important;
         }
     </style>
 </head>
@@ -46,6 +46,9 @@
 let verbs = [];
 const TOTAL_QUESTIONS = 20;
 
+/* =============================
+   Cargar CSV
+============================= */
 fetch("verbs.csv")
     .then(res => res.text())
     .then(data => {
@@ -66,10 +69,23 @@ fetch("verbs.csv")
         generateTest();
     });
 
+/* =============================
+   Utilidades
+============================= */
 function randomItem(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function normalize(text) {
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, " ");
+}
+
+/* =============================
+   Generar Test
+============================= */
 function generateTest() {
     const quiz = document.getElementById("quiz");
     const result = document.getElementById("result");
@@ -102,18 +118,15 @@ function generateTest() {
                 <input type="text"
                        class="form-control answer"
                        data-answer="${answer}">
+                <div class="feedback text-danger mt-1 d-none"></div>
             </div>
         `;
     }
 }
 
-function normalize(text) {
-    return text
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, " ");
-}
-
+/* =============================
+   Corregir respuestas
+============================= */
 function checkAnswers() {
     const inputs = document.querySelectorAll(".answer");
     let correct = 0;
@@ -121,24 +134,34 @@ function checkAnswers() {
     inputs.forEach(input => {
         const userAnswer = normalize(input.value);
         const correctAnswer = normalize(input.dataset.answer);
+        const feedback = input.nextElementSibling;
 
         input.classList.remove("correct", "incorrect");
+        feedback.classList.add("d-none");
+        feedback.innerHTML = "";
 
-        // Permite múltiples respuestas separadas por /
-        const validAnswers = correctAnswer.split("/").map(a => normalize(a));
+        
+        const validAnswers = correctAnswer
+            .split("/")
+            .map(a => normalize(a));
 
         if (validAnswers.includes(userAnswer)) {
             input.classList.add("correct");
             correct++;
         } else {
             input.classList.add("incorrect");
+            feedback.classList.remove("d-none");
+            feedback.innerHTML = `
+                ✔ Respuesta correcta: 
+                <strong>${input.dataset.answer}</strong>
+            `;
         }
     });
 
     const result = document.getElementById("result");
     result.classList.remove("d-none");
     result.innerHTML = `
-        <strong>Resultado:</strong> ${correct} / ${TOTAL_QUESTIONS} correctas
+        <strong>Resultado final:</strong> ${correct} / ${TOTAL_QUESTIONS} correctas
     `;
 }
 </script>
