@@ -76,9 +76,11 @@ function randomItem(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+/* 🔥 NORMALIZACIÓN MEJORADA 🔥 */
 function normalize(text) {
     return text
         .toLowerCase()
+        .replace(/\s*\/\s*/g, "/") // normaliza slash
         .trim()
         .replace(/\s+/g, " ");
 }
@@ -126,7 +128,7 @@ function generateTest() {
 
 /* =============================
    Corregir respuestas
-============================= /*/
+============================= */
 function checkAnswers() {
     const inputs = document.querySelectorAll(".answer");
     let correct = 0;
@@ -140,7 +142,6 @@ function checkAnswers() {
         feedback.classList.add("d-none");
         feedback.innerHTML = "";
 
-        
         const validAnswers = correctAnswer
             .split("/")
             .map(a => normalize(a));
@@ -152,7 +153,7 @@ function checkAnswers() {
             input.classList.add("incorrect");
             feedback.classList.remove("d-none");
             feedback.innerHTML = `
-                ✔ Respuesta correcta: 
+                ✔ Respuesta correcta:
                 <strong>${input.dataset.answer}</strong>
             `;
         }
