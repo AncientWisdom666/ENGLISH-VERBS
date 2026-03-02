@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Irregular Verbs Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { text-align: center; }
+        .question { margin-bottom: 15px; }
+        input { padding: 5px; }
+        button { padding: 10px 15px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>Irregular Verbs Test (20 Questions)</h1>
+<div id="quiz"></div>
+<button onclick="generateTest()">Nuevo Test</button>
+
+<script>
+let verbs = [];
+
+fetch("verbs.csv")
+    .then(res => res.text())
+    .then(data => {
+        const rows = data.split("\n").slice(1);
+        verbs = rows.map(r => {
+            const [inf, past, part, esp] = r.split(",");
+            return { inf, past, part, esp };
+        });
+        generateTest();
+    });
+
+function randomItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generateTest() {
+    const quiz = document.getElementById("quiz");
+    quiz.innerHTML = "";
+
+    for (let i = 1; i <= 20; i++) {
+        const v = randomItem(verbs);
+        const type = Math.floor(Math.random() * 3);
+
+        let questionText = "";
+        let answer = "";
+
+        if (type === 0) {
+            questionText = `(${i}) Pasado simple de <b>${v.inf}</b>:`;
+            answer = v.past;
+        } else if (type === 1) {
+            questionText = `(${i}) Participio pasado de <b>${v.inf}</b>:`;
+            answer = v.part;
+        } else {
+            questionText = `(${i}) Significado en español de <b>${v.inf}</b>:`;
+            answer = v.esp;
+        }
+
+        quiz.innerHTML += `
+            <div class="question">
+                ${questionText}<br>
+                <input type="text" data-answer="${answer}">
+            </div>
+        `;
+    }
+}
+</script>
+
+</body>
+</html>
