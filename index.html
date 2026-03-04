@@ -43,10 +43,8 @@
 </div>
 
 <script>
-
-
 /* =============================
-   Imágenes por verbo
+   Imágenes por verbo (MINÚSCULAS)
 ============================= */
 const verbImages = {
   awake: "https://images.unsplash.com/photo-1507679799987-c73779587ccf",
@@ -100,120 +98,102 @@ const TOTAL_QUESTIONS = 20;
    Cargar CSV
 ============================= */
 fetch("verbs.csv")
-    .then(res => res.text())
-    .then(data => {
-        const rows = data.split("\n").slice(1);
-        verbs = rows
-            .map(r => r.trim())
-            .filter(r => r)
-            .map(r => {
-                const [inf, past, part, esp] = r.split(",");
-                return {
-                    inf: inf?.trim(),
-                    past: past?.trim().toLowerCase(),
-                    part: part?.trim().toLowerCase(),
-                    esp: esp?.trim().toLowerCase()
-                };
-            });
+  .then(res => res.text())
+  .then(data => {
+    const rows = data.split("\n").slice(1);
+    verbs = rows
+      .map(r => r.trim())
+      .filter(r => r)
+      .map(r => {
+        const [inf, past, part, esp] = r.split(",");
+        return {
+          inf: inf.trim().toLowerCase().replace(/\s*\(.*?\)/g, ""),
+          past: past.trim().toLowerCase(),
+          part: part.trim().toLowerCase(),
+          esp: esp.trim().toLowerCase()
+        };
+      });
+    generateTest();
+  });
 
-        generateTest();
-    });
-
-/* =============================
-   Utilidades
-============================= */
 function randomItem(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
-/* 🔥 NORMALIZACIÓN MEJORADA 🔥 */
 function normalize(text) {
-    return text
-        .toLowerCase()
-        .replace(/\s*\/\s*/g, "/") // normaliza slash
-        .trim()
-        .replace(/\s+/g, " ");
+  return text.toLowerCase().trim().replace(/\s+/g, " ");
 }
 
 /* =============================
-   Generar Test
+   Generar Test (CON IMÁGENES)
 ============================= */
 function generateTest() {
-    const quiz = document.getElementById("quiz");
-    const result = document.getElementById("result");
+  const quiz = document.getElementById("quiz");
+  const result = document.getElementById("result");
+  quiz.innerHTML = "";
+  result.classList.add("d-none");
 
-    quiz.innerHTML = "";
-    result.classList.add("d-none");
-    result.innerHTML = "";
+  for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+    const v = randomItem(verbs);
+    const type = Math.floor(Math.random() * 3);
 
-    for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
-        const v = randomItem(verbs);
-        const type = Math.floor(Math.random() * 3);
+    let question = "";
+    let answer = "";
 
-        let question = "";
-        let answer = "";
-
-        if (type === 0) {
-            question = `Pasado simple de <b>${v.inf}</b>`;
-            answer = v.past;
-        } else if (type === 1) {
-            question = `Participio pasado de <b>${v.inf}</b>`;
-            answer = v.part;
-        } else {
-            question = `Significado en español de <b>${v.inf}</b>`;
-            answer = v.esp;
-        }
-
-        quiz.innerHTML += `
-            <div class="mb-3">
-                <label class="form-label">${i}. ${question}</label>
-                <input type="text"
-                       class="form-control answer"
-                       data-answer="${answer}">
-                <div class="feedback text-danger mt-1 d-none"></div>
-            </div>
-        `;
+    if (type === 0) {
+      question = `Pasado simple de <b>${v.inf}</b>`;
+      answer = v.past;
+    } else if (type === 1) {
+      question = `Participio pasado de <b>${v.inf}</b>`;
+      answer = v.part;
+    } else {
+      question = `Significado en español de <b>${v.inf}</b>`;
+      answer = v.esp;
     }
+
+    const img = verbImages[v.inf];
+
+    quiz.innerHTML += `
+      <div class="mb-4">
+        <label class="form-label">${i}. ${question}</label>
+        ${img ? `<div class="mb-2">
+          <img src="${img}" class="img-fluid rounded shadow" style="max-height:180px">
+        </div>` : ""}
+        <input type="text" class="form-control answer" data-answer="${answer}">
+        <div class="feedback text-danger mt-1 d-none"></div>
+      </div>
+    `;
+  }
 }
 
 /* =============================
    Corregir respuestas
 ============================= */
 function checkAnswers() {
-    const inputs = document.querySelectorAll(".answer");
-    let correct = 0;
+  const inputs = document.querySelectorAll(".answer");
+  let correct = 0;
 
-    inputs.forEach(input => {
-        const userAnswer = normalize(input.value);
-        const correctAnswer = normalize(input.dataset.answer);
-        const feedback = input.nextElementSibling;
+  inputs.forEach(input => {
+    const user = normalize(input.value);
+    const ok = normalize(input.dataset.answer);
+    const feedback = input.nextElementSibling;
 
-        input.classList.remove("correct", "incorrect");
-        feedback.classList.add("d-none");
-        feedback.innerHTML = "";
+    input.classList.remove("correct", "incorrect");
+    feedback.classList.add("d-none");
 
-        const validAnswers = correctAnswer
-            .split("/")
-            .map(a => normalize(a));
+    if (ok.split("/").includes(user)) {
+      input.classList.add("correct");
+      correct++;
+    } else {
+      input.classList.add("incorrect");
+      feedback.classList.remove("d-none");
+      feedback.innerHTML = `✔ Respuesta correcta: <b>${input.dataset.answer}</b>`;
+    }
+  });
 
-        if (validAnswers.includes(userAnswer)) {
-            input.classList.add("correct");
-            correct++;
-        } else {
-            input.classList.add("incorrect");
-            feedback.classList.remove("d-none");
-            feedback.innerHTML = `
-                ✔ Respuesta correcta:
-                <strong>${input.dataset.answer}</strong>
-            `;
-        }
-    });
-
-    const result = document.getElementById("result");
-    result.classList.remove("d-none");
-    result.innerHTML = `
-        <strong>Resultado final:</strong> ${correct} / ${TOTAL_QUESTIONS} correctas
-    `;
+  const result = document.getElementById("result");
+  result.classList.remove("d-none");
+  result.innerHTML = `<strong>Resultado:</strong> ${correct} / ${TOTAL_QUESTIONS}`;
 }
 </script>
 
