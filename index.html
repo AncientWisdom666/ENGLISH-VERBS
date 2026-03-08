@@ -1,201 +1,155 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Irregular Verbs Test</title>
+<meta charset="UTF-8">
+<title>English Learning Hub</title>
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        body {
-            background-color: #f5f5f5;
-        }
-        .correct {
-            border: 2px solid #198754 !important;
-            background-color: #d1e7dd !important;
-        }
-        .incorrect {
-            border: 2px solid #dc3545 !important;
-            background-color: #f8d7da !important;
-        }
-    </style>
+<style>
+
+body{
+    background:#f5f5f5;
+}
+
+.app-card{
+    transition:all 0.25s;
+}
+
+.app-card:hover{
+    transform:translateY(-5px);
+}
+
+.disabled-card{
+    opacity:0.5;
+    pointer-events:none;
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="container mt-5 mb-5">
-    <div class="card shadow">
-        <div class="card-body">
+<div class="container mt-5">
 
-            <h1 class="text-center mb-4">Irregular Verbs Test</h1>
+<h1 class="text-center mb-5">
+English Learning Apps
+</h1>
 
-            <div id="quiz"></div>
+<div class="row g-4">
 
-            <div class="d-flex justify-content-start gap-2 mt-4">
-                <button class="btn btn-primary" onclick="generateTest()">Nuevo Test</button>
-                <button class="btn btn-success" onclick="checkAnswers()">Corregir</button>
-            </div>
+<!-- APP 1 -->
 
-            <div id="result" class="alert alert-info mt-4 d-none"></div>
+<div class="col-md-4">
+<div class="card shadow app-card">
 
-        </div>
-    </div>
+<div class="card-body text-center">
+
+<h4>Irregular Verbs Test</h4>
+
+<p class="text-muted">
+Version 1
+</p>
+
+<a href="verbs-test-v1/index.html" class="btn btn-primary">
+Abrir App
+</a>
+
+</div>
+</div>
 </div>
 
-<script>
-/* =============================
-   Imágenes por verbo (MINÚSCULAS)
-============================= */
-const verbImages = {
-  awake: "https://i.pinimg.com/474x/46/b2/69/46b26914b79ee59dcc23eb00da6a4ae5.jpg",
-  be: "https://lifeimprovementsteps.com/wp-content/uploads/2023/07/become-a-better-person-1024x684-1.jpg",
-  bear: "https://i.ytimg.com/vi/Ac5j4qwph1Q/maxresdefault.jpg",
-  beat: "https://media.baamboozle.com/uploads/images/116075/1627498417_17922.jpeg",
-  become: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70",
-  begin: "https://images.unsplash.com/photo-1506784365847-bbad939e9335",
-  bend: "https://www.yoganatomy.com/wp-content/uploads/2017/07/standing-forward-bend-hasta.jpg",
-  bet: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d",
-  bind: "https://thumbs.dreamstime.com/b/manos-amarradas-dibujo-de-vectores-159270105.jpg",
-  bid: "https://thumbs.dreamstime.com/b/mazo-del-control-subastador-disposici%C3%B3n-los-compradores-que-aumentaban-la-tenencia-de-brazo-hicieron-una-oferta-las-paletas-con-119160732.jpg",
-  bleed: "https://transcode-v2.app.engoo.com/image/fetch/f_auto,c_lfill,h_128,dpr_3/https://assets.app.engoo.com/images/mS1q5SDtborRMDpgy5GyWsKDIrQN8W79CgKaQzB8U9t.jpeg",
-  blow: "https://globalsymbols.com/uploads/production/image/imagefile/14094/17_14095_1f40597f-34fb-4497-9d7c-d6964bc49588.png",
-  break: "https://www.clipartmax.com/png/full/106-1069541_break-break-verb-clipart.png",
-  bring: "https://cdn-icons-png.flaticon.com/512/5775/5775458.png",
-  build: "https://images.unsplash.com/photo-1503387762-592deb58ef4e",
-  burn: "https://www.thedermspecs.com/wp-content/uploads/2013/04/burn.png",
-  burst: "https://www.200words-a-day.com/images/eclater.jpg",
-  buy: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE9S8emVeUv4OsGT6IAIKMGviy-wJF_xOCqw&s",
-  catch: "https://examtimeassets.s3.amazonaws.com/uploads/true_or_false_question/image/1360298/desktop_1f1f7018-6c80-4851-ba31-95a32409a65d.jpg",
-  come: "https://media.baamboozle.com/uploads/images/159520/1625582964_104056.png",
-  cost: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e",
-  cut: "https://examtimeassets.s3.amazonaws.com/uploads/media/image/24751020/desktop_9bbc7ba1-5756-438e-b6b8-1aa1b849393c.jpg",
-  choose: "https://media.baamboozle.com/uploads/images/285400/1651705553_51825.jpeg",
-  deal: "https://images.unsplash.com/photo-1521791136064-7986c2920216",
-  dig: "https://examtimeassets.s3.amazonaws.com/uploads/media/image/13388679/desktop_9077f505-4d9b-4959-9907-c9045467fc7c.jpg",
-  do: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b",
-  draw: "https://images.unsplash.com/photo-1455390582262-044cdead277a",
-  dream: "https://clevelandclarion.com/wp-content/uploads/2025/04/dream-graphic-_-Maki-Lee-1200x1056.jpg",
-  drink: "https://images.unsplash.com/photo-1509042239860-f550ce710b93",
-  drive: "https://images.unsplash.com/photo-1502877338535-766e1452684a",
-  eat: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
-  fall: "https://i.pinimg.com/564x/7d/12/fc/7d12fc3e16666138d23d31c95350cab8.jpg",
-  feed: "https://voca-land.sgp1.cdn.digitaloceanspaces.com/43844/1654927249965/06194a1ce402c25471da396cef424e87b1c2c01decb17d624ff40847f1f4050d.jpg",
-  feel: "https://24.media.tumblr.com/tumblr_kyf40gFO9x1qzvvtvo1_400.gif",
-  fight: "https://thumbs.dreamstime.com/b/girl-fight-friends-having-tearing-each-others-hair-31034602.jpg",
-  find: "https://media.baamboozle.com/uploads/images/1653973/8a3325c9-8b12-437e-9894-e9f27cb9e777-thumbnail.jpeg",
-  flee: "https://examtimeassets.s3.amazonaws.com/uploads/media/image/13392913/desktop_ed8b6d13-2d8d-418e-8877-be1d4881950c.jpg",
-  fly: "https://media.baamboozle.com/uploads/images/121249/1603124609_13426",
-  forbid: "https://merriam-webster.com/assets/ld/word_of_the_day/images/2744/large.jpg",
-  forget: "https://www.quia.com/files/quia/users/second2ndlanguage/forget.JPG",
-  forgive: "https://thumbs.dreamstime.com/b/d-people-man-person-knees-begging-forgiveness-forgive-me-30268695.jpg",
-  freeze: "https://media.baamboozle.com/uploads/images/282046/1616717710_10366.jpeg"
-};
 
-let verbs = [];
-const TOTAL_QUESTIONS = 20;
+<!-- APP 2 -->
 
-/* ================================
-   Cargar CSV
-============================= */
-fetch("verbs.csv")
-  .then(res => res.text())
-  .then(data => {
-    const rows = data.split("\n").slice(1);
-    verbs = rows
-      .map(r => r.trim())
-      .filter(r => r)
-      .map(r => {
-        const [inf, past, part, esp] = r.split(",");
-        return {
-          inf: inf.trim().toLowerCase().replace(/\s*\(.*?\)/g, ""),
-          past: past.trim().toLowerCase(),
-          part: part.trim().toLowerCase(),
-          esp: esp.trim().toLowerCase()
-        };
-      });
-    generateTest();
-  });
+<div class="col-md-4">
+<div class="card shadow app-card">
 
-function randomItem(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
+<div class="card-body text-center">
 
-function normalize(text) {
-  return text.toLowerCase().trim().replace(/\s+/g, " ");
-}
+<h4>Irregular Verbs Test</h4>
 
-/* =============================
-   Generar Test (CON IMÁGENES)
-============================= */
-function generateTest() {
-  const quiz = document.getElementById("quiz");
-  const result = document.getElementById("result");
-  quiz.innerHTML = "";
-  result.classList.add("d-none");
+<p class="text-muted">
+Version 2 (mejorada)
+</p>
 
-  for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
-    const v = randomItem(verbs);
-    const type = Math.floor(Math.random() * 3);
+<a href="verbs-test-v2/index.html" class="btn btn-success">
+Abrir App
+</a>
 
-    let question = "";
-    let answer = "";
+</div>
+</div>
+</div>
 
-    if (type === 0) {
-      question = `Pasado simple de <b>${v.inf}</b>`;
-      answer = v.past;
-    } else if (type === 1) {
-      question = `Participio pasado de <b>${v.inf}</b>`;
-      answer = v.part;
-    } else {
-      question = `Significado en español de <b>${v.inf}</b>`;
-      answer = v.esp;
-    }
 
-    const img = verbImages[v.inf];
+<!-- FUTURA APP -->
 
-    quiz.innerHTML += `
-      <div class="mb-4">
-        <label class="form-label">${i}. ${question}</label>
-        ${img ? `<div class="mb-2">
-          <img src="${img}" class="img-fluid rounded shadow" style="max-height:180px">
-        </div>` : ""}
-        <input type="text" class="form-control answer" data-answer="${answer}">
-        <div class="feedback text-danger mt-1 d-none"></div>
-      </div>
-    `;
-  }
-}
+<div class="col-md-4">
+<div class="card shadow app-card disabled-card">
 
-/* =============================
-   Corregir respuestas
-============================= */
-function checkAnswers() {
-  const inputs = document.querySelectorAll(".answer");
-  let correct = 0;
+<div class="card-body text-center">
 
-  inputs.forEach(input => {
-    const user = normalize(input.value);
-    const ok = normalize(input.dataset.answer);
-    const feedback = input.nextElementSibling;
+<h4>Vocabulary Trainer</h4>
 
-    input.classList.remove("correct", "incorrect");
-    feedback.classList.add("d-none");
+<p class="text-muted">
+Coming Soon
+</p>
 
-    if (ok.split("/").includes(user)) {
-      input.classList.add("correct");
-      correct++;
-    } else {
-      input.classList.add("incorrect");
-      feedback.classList.remove("d-none");
-      feedback.innerHTML = `✔ Respuesta correcta: <b>${input.dataset.answer}</b>`;
-    }
-  });
+<button class="btn btn-secondary">
+Próximamente
+</button>
 
-  const result = document.getElementById("result");
-  result.classList.remove("d-none");
-  result.innerHTML = `<strong>Resultado:</strong> ${correct} / ${TOTAL_QUESTIONS}`;
-}
-</script>
+</div>
+</div>
+</div>
+
+
+<!-- FUTURA APP -->
+
+<div class="col-md-4">
+<div class="card shadow app-card disabled-card">
+
+<div class="card-body text-center">
+
+<h4>Listening Trainer</h4>
+
+<p class="text-muted">
+Coming Soon
+</p>
+
+<button class="btn btn-secondary">
+Próximamente
+</button>
+
+</div>
+</div>
+</div>
+
+
+<!-- FUTURA APP -->
+
+<div class="col-md-4">
+<div class="card shadow app-card disabled-card">
+
+<div class="card-body text-center">
+
+<h4>Grammar Trainer</h4>
+
+<p class="text-muted">
+Coming Soon
+</p>
+
+<button class="btn btn-secondary">
+Próximamente
+</button>
+
+</div>
+</div>
+</div>
+
+
+</div>
+</div>
 
 </body>
 </html>
