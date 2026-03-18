@@ -648,8 +648,8 @@ card.classList.remove("card-correct","card-wrong","card-empty");
 if(q.type==="build" || q.type==="transform"){
 
 let input = document.querySelector(`input[data-index='${i}']`);
-let user = input.value.trim().toLowerCase();
-let correct = q.answer.toLowerCase();
+let user = normalizar(input.value);
+let correct = normalizar(q.answer);
 
 input.disabled = true;
 
@@ -743,6 +743,16 @@ Resultado final: <b>${correctas} / ${test.length}</b>
 function shuffle(arr){
 return arr.sort(()=>Math.random()-0.5);
 }
+
+
+function normalizar(texto){
+return texto
+    .toLowerCase()
+    .trim()
+    .replace(/\./g,"")        
+    .replace(/\s+/g, " ");    
+}
+
 
 // =====================
 // INIT
