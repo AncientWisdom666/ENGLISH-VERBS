@@ -1,0 +1,89 @@
+body{
+    background: linear-gradient(135deg,#f8f9fa,#e9ecef);
+    color: #212529;
+}
+
+/* TARJETAS */
+.card{
+    border-radius: 18px;
+    background: #ffffff;
+    border: none;
+    transition: 0.2s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* INPUTS */
+input{
+    background: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    color: #212529 !important;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+input:focus{
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.2rem rgba(13,110,253,.15);
+}
+
+/* CORRECTO */
+.correct{
+    border:2px solid #198754 !important;
+    background:#e9f7ef !important;
+}
+
+/* INCORRECTO */
+.incorrect{
+    border:2px solid #dc3545 !important;
+    background:#fdeaea !important;
+}
+
+/* RESPUESTA */
+.answer{
+    font-size: 13px;
+    margin-top: 6px;
+    color:#dc3545;
+}
+
+/* OPCIONES */
+.form-check{
+    padding: 8px 10px;
+    border-radius: 10px;
+    transition: 0.15s;
+}
+
+.form-check:hover{
+    background:#f1f3f5;
+}
+
+.form-check-label{
+    cursor:pointer;
+}
+
+
+
+
+
+
+.seleccionado{
+    background:#e7f1ff;
+    border-radius:8px;
+    padding:5px;
+}
+
+.text-success{
+    background:#d4edda;
+    border-radius:8px;
+    padding:5px;
+}
+
+.text-danger{
+    background:#f8d7da;
+    border-radius:8px;
+    padding:5px;
+}

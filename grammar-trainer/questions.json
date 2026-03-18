@@ -1,0 +1,28 @@
+[
+  {
+    "type": "build",
+    "tense": "past_simple",
+    "words": ["yesterday", "go", "I", "to school"],
+    "answer": "I went to school yesterday"
+  },
+  {
+    "type": "identify_tense",
+    "sentence": "I have eaten pizza",
+    "options": [
+      "Present Simple",
+      "Present Perfect",
+      "Past Simple"
+    ],
+    "correct": 1
+  },
+  {
+    "type": "voice_tense",
+    "sentence": "The report was prepared by him",
+    "options": [
+      "Active - Past Simple",
+      "Passive - Past Simple",
+      "Passive - Present Perfect"
+    ],
+    "correct": 1
+  }
+]
