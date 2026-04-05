@@ -131,6 +131,13 @@ function normalize(text) {
   return text.toLowerCase().trim().replace(/\s+/g, " ");
 }
 
+function speak(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-US";   // inglés americano
+  utterance.rate = 0.9;      // velocidad un poco más lenta
+  speechSynthesis.speak(utterance);
+}
+
 /* =============================
    Generar Test (CON IMÁGENES)
 ============================= */
@@ -166,7 +173,15 @@ function generateTest() {
     row.innerHTML += `
       <div class="col-12 col-md-6">
         <div class="p-3 border rounded bg-white h-100">
-          <label class="form-label">${i}. ${question}</label>
+          <label class="form-label d-flex align-items-center justify-content-between">
+          <span>${i}. ${question}</span>
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary ms-2"
+                  onclick="speak('${v.inf}')"
+                  title="Escuchar pronunciación">
+            🔊
+          </button>
+        </label>
 
           ${img ? `
             <div class="text-center mb-2">
