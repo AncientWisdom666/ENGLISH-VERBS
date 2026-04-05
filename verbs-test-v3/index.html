@@ -19,6 +19,13 @@
             border: 2px solid #dc3545 !important;
             background-color: #f8d7da !important;
         }
+        #quiz .form-label {
+          font-weight: 600;
+        }
+
+        #quiz img {
+          object-fit: cover;
+        }
     </style>
 </head>
 <body>
@@ -163,6 +170,13 @@ function normalize(text) {
   return text.toLowerCase().trim().replace(/\s+/g, " ");
 }
 
+function speak(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-US";   // inglés americano
+  utterance.rate = 0.9;      // velocidad un poco más lenta
+  speechSynthesis.speak(utterance);
+}
+
 /* =============================
    Generar Test (CON IMÁGENES)
 ============================= */
@@ -194,7 +208,15 @@ function generateTest() {
 
     quiz.innerHTML += `
       <div class="mb-4">
-        <label class="form-label">${i}. ${question}</label>
+        <label class="form-label d-flex align-items-center justify-content-between">
+        <span>${i}. ${question}</span>
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary ms-2"
+                  onclick="speak('${v.inf}')"
+                  title="Escuchar pronunciación">
+            🔊
+          </button>
+        </label>
         ${img ? `<div class="mb-2">
           <img src="${img}" class="img-fluid rounded shadow" style="max-height:180px">
         </div>` : ""}
