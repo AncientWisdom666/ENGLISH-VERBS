@@ -190,9 +190,21 @@ function generateTest() {
           ` : ""}
 
           <input type="text"
-                 class="form-control answer"
-                 data-answer="${answer}">
-          <div class="feedback text-danger mt-1 d-none"></div>
+          class="form-control answer"
+          data-answer="${answer}"
+          data-type="${type}"
+          data-audio="${type !== 2 ? answer : ''}">
+
+    ${type !== 2 ? `
+      <button type="button"
+              class="btn btn-sm btn-outline-primary mt-2 audio-answer"
+              onclick="speak('${answer}')"
+              title="Escuchar respuesta correcta">
+        🔊 Escuchar respuesta
+      </button>
+    ` : ""}
+
+    <div class="feedback text-danger mt-1 d-none"></div>
         </div>
       </div>
     `;

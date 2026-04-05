@@ -55,7 +55,7 @@
 ============================= */
 const verbImages = {
   get: "https://media.baamboozle.com/uploads/images/1060901/1675799109_20618_url.jpeg",
-  give: "https://img.myloview.com/posters/kids-verb-give-book-illustration-700-207305433.jpg",
+  give: "https://www.shutterstock.com/image-vector/children-giving-book-friend-vector-600nw-2282676731.jpg",
   go: "https://globalsymbols.com/uploads/production/image/imagefile/23517/17_23518_3643bc51-3052-4c5f-af70-1375cc581d17.png",
   grow: "https://tradyteacher.wordpress.com/wp-content/uploads/2016/03/grow-up.jpg",
   hang: "https://globalsymbols.com/uploads/production/image/imagefile/14050/17_14051_36c86038-d51a-44bc-b008-4e6a113b9cb5.png",
@@ -141,8 +141,11 @@ function speak(word) {
 function generateTest() {
   const quiz = document.getElementById("quiz");
   const result = document.getElementById("result");
-  quiz.innerHTML = "";
+
   result.classList.add("d-none");
+  quiz.innerHTML = `<div class="row g-4"></div>`;
+
+  const row = quiz.querySelector(".row");
 
   for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
     const v = randomItem(verbs);
@@ -164,10 +167,11 @@ function generateTest() {
 
     const img = verbImages[v.inf];
 
-    quiz.innerHTML += `
-      <div class="mb-4">
-        <label class="form-label d-flex align-items-center justify-content-between">
-        <span>${i}. ${question}</span>
+    row.innerHTML += `
+      <div class="col-12 col-md-6">
+        <div class="p-3 border rounded bg-white h-100">
+          <label class="form-label d-flex align-items-center justify-content-between">
+          <span>${i}. ${question}</span>
           <button type="button"
                   class="btn btn-sm btn-outline-secondary ms-2"
                   onclick="speak('${v.inf}')"
@@ -175,11 +179,30 @@ function generateTest() {
             🔊
           </button>
         </label>
-        ${img ? `<div class="mb-2">
-          <img src="${img}" class="img-fluid rounded shadow" style="max-height:180px">
-        </div>` : ""}
-        <input type="text" class="form-control answer" data-answer="${answer}">
-        <div class="feedback text-danger mt-1 d-none"></div>
+
+          ${img ? `
+            <div class="text-center mb-2">
+              <img src="${img}" class="img-fluid rounded shadow" style="max-height:160px">
+            </div>
+          ` : ""}
+
+          <input type="text"
+          class="form-control answer"
+          data-answer="${answer}"
+          data-type="${type}"
+          data-audio="${type !== 2 ? answer : ''}">
+
+    ${type !== 2 ? `
+      <button type="button"
+              class="btn btn-sm btn-outline-primary mt-2 audio-answer"
+              onclick="speak('${answer}')"
+              title="Escuchar respuesta correcta">
+        🔊 Escuchar respuesta
+      </button>
+    ` : ""}
+
+    <div class="feedback text-danger mt-1 d-none"></div>
+        </div>
       </div>
     `;
   }
