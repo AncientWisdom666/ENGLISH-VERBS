@@ -19,6 +19,13 @@
             border: 2px solid #dc3545 !important;
             background-color: #f8d7da !important;
         }
+        #quiz .form-label {
+          font-weight: 600;
+        }
+
+        #quiz img {
+          object-fit: cover;
+        }
     </style>
 </head>
 <body>
@@ -130,8 +137,11 @@ function normalize(text) {
 function generateTest() {
   const quiz = document.getElementById("quiz");
   const result = document.getElementById("result");
-  quiz.innerHTML = "";
+
   result.classList.add("d-none");
+  quiz.innerHTML = `<div class="row g-4"></div>`;
+
+  const row = quiz.querySelector(".row");
 
   for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
     const v = randomItem(verbs);
@@ -153,14 +163,22 @@ function generateTest() {
 
     const img = verbImages[v.inf];
 
-    quiz.innerHTML += `
-      <div class="mb-4">
-        <label class="form-label">${i}. ${question}</label>
-        ${img ? `<div class="mb-2">
-          <img src="${img}" class="img-fluid rounded shadow" style="max-height:180px">
-        </div>` : ""}
-        <input type="text" class="form-control answer" data-answer="${answer}">
-        <div class="feedback text-danger mt-1 d-none"></div>
+    row.innerHTML += `
+      <div class="col-12 col-md-6">
+        <div class="p-3 border rounded bg-white h-100">
+          <label class="form-label">${i}. ${question}</label>
+
+          ${img ? `
+            <div class="text-center mb-2">
+              <img src="${img}" class="img-fluid rounded shadow" style="max-height:160px">
+            </div>
+          ` : ""}
+
+          <input type="text"
+                 class="form-control answer"
+                 data-answer="${answer}">
+          <div class="feedback text-danger mt-1 d-none"></div>
+        </div>
       </div>
     `;
   }
