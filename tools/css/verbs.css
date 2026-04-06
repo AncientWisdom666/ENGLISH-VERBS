@@ -1,0 +1,54 @@
+body {
+    background: #f5f5f5;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Card con imagen */
+.app-card {
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+
+.app-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+}
+
+.app-card .card-img-top {
+    height: 160px;
+    object-fit: cover;
+}
+
+/* Contenido */
+.card-body {
+    padding: 24px 20px;
+    text-align: center;
+}
+
+.card-body h4 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1e2937;
+    margin-bottom: 10px;
+}
+
+.card-body .text-muted {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+/* Botones */
+.btn {
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.disabled-card {
+    opacity: 0.5;
+    pointer-events: none;
+}

@@ -1,0 +1,308 @@
+/* ===============================
+   PÁGINA GENERAL - Fondo noche nevada
+   =============================== */
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Fondo noche invernal profunda y elegante */
+  background: linear-gradient(to bottom, #0a1428, #1e2a4a, #2c4a7c);
+  background-attachment: fixed;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  color: #e0f2fe;
+}
+
+/* Centrado del formulario */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* ===============================
+   TARJETA PRINCIPAL
+   =============================== */
+
+.login-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 980px;
+  height: 560px;
+  background: rgba(255, 255, 255, 0.96);   /* Blanco muy suave y translúcido */
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+}
+
+/* ===============================
+   FORMULARIO (Izquierda)
+   =============================== */
+
+.login-form {
+  width: 42%;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(12px);
+}
+
+.logo-nieve {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 18px;
+  filter: drop-shadow(0 8px 16px rgba(147, 197, 253, 0.5));
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Títulos - tonos más fríos y elegantes */
+h2 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #1e2937;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.welcome-text {
+  font-size: 1.18rem;
+  color: #475569;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h4 {
+  font-size: 1.42rem;
+  font-weight: 600;
+  color: #334155;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* Inputs - bordes más suaves */
+.form-control {
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 2px solid #cbd5e1;
+  font-size: 1.05rem;
+  background: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.18);
+  outline: none;
+}
+
+/* Botón - Azul más suave y frío (mejor armonía) */
+.btn-primary {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  border: none;
+  padding: 15px;
+  font-size: 1.12rem;
+  font-weight: 600;
+  border-radius: 12px;
+  margin-top: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(96, 165, 250, 0.4);
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+}
+
+/* Mensaje de error */
+#mensaje {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* ===============================
+   VIDEO (Derecha) - Overlay más suave
+   =============================== */
+
+.login-video {
+  width: 58%;
+  position: relative;
+  overflow: hidden;
+  background: #111;
+}
+
+.login-video iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180%;
+  height: 180%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.login-video::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);   /* Overlay más oscuro y frío */
+  z-index: 1;
+}
+
+/* ===============================
+   NIEVE ANIMADA
+   =============================== */
+
+.snow {
+  filter: blur(0.8px);
+  opacity: 0.85;   /* Añade esta línea si no la tienes */
+}
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+
+@media (max-width: 900px) {
+  .login-wrapper {
+    flex-direction: column;
+    height: auto;
+    max-width: 420px;
+  }
+
+  .login-form,
+  .login-video {
+    width: 100%;
+  }
+
+  .login-video {
+    height: 260px;
+  }
+
+  .login-form {
+    padding: 50px 30px;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+}
+
+/* ===============================
+   ANIMACIÓN DE NIEVE SUTIL
+   ============================== */
+
+/* ===============================
+   ANIMACIÓN DE NIEVE AZUL-BLANCA - Versión Mejorada
+   =============================== */
+
+.snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+/* Capa 1 - Copos grandes, muy suaves y lentos */
+.snow::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 0;
+  width: 100%;
+  height: 140%;
+  background: transparent;
+  background-image: 
+    radial-gradient(circle, #f0f9ff 3px, transparent 6px),     /* copos grandes blancos */
+    radial-gradient(circle, #e0f2fe 4px, transparent 8px),     /* copos grandes suaves */
+    radial-gradient(circle, #bae6fd 2.5px, transparent 5px);   /* toques más pequeños */
+  background-size: 180px 180px, 250px 250px, 120px 120px;
+  animation: snowfallSlow 35s linear infinite;
+  opacity: 0.75;
+}
+
+/* Capa 2 - Copos medianos-grandes, difuminados, con retraso */
+.snow::after {
+  content: '';
+  position: absolute;
+  top: -180px;
+  left: 0;
+  width: 100%;
+  height: 140%;
+  background: transparent;
+  background-image: 
+    radial-gradient(circle, #dbeafe 2.8px, transparent 5.5px),
+    radial-gradient(circle, #7dd3fc 3.5px, transparent 7px),
+    radial-gradient(circle, #f1f5f9 2px, transparent 4px);
+  background-size: 140px 140px, 200px 200px, 90px 90px;
+  animation: snowfallMedium 28s linear infinite;
+  opacity: 0.65;
+  animation-delay: -14s;   /* Mayor desfase para que no caigan juntos */
+}
+
+/* Tercera capa sutil (para más profundidad y movimiento natural) */
+.snow .extra-snow {
+  position: absolute;
+  top: -150px;
+  left: 0;
+  width: 100%;
+  height: 140%;
+  background: transparent;
+  background-image: 
+    radial-gradient(circle, #e0f2fe 2px, transparent 4px);
+  background-size: 300px 300px;
+  animation: snowfallVerySlow 45s linear infinite;
+  opacity: 0.45;
+  animation-delay: -22s;
+}
+
+/* Animaciones más lentas y suaves */
+@keyframes snowfallSlow {
+  0%   { 
+    transform: translateY(-15%) rotate(0deg); 
+  }
+  100% { 
+    transform: translateY(120%) rotate(18deg); 
+  }
+}
+
+@keyframes snowfallMedium {
+  0%   { 
+    transform: translateY(-12%) rotate(0deg); 
+  }
+  100% { 
+    transform: translateY(118%) rotate(-15deg); 
+  }
+}
+
+@keyframes snowfallVerySlow {
+  0%   { 
+    transform: translateY(-10%) rotate(0deg); 
+  }
+  100% { 
+    transform: translateY(115%) rotate(12deg); 
+  }
+}
+
+/* Brillo suave general */
+.snow {
+  filter: blur(0.5px);   /* hace que los copos se vean más difuminados y suaves */
+}

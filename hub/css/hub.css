@@ -1,0 +1,362 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #eef5ff, #e6f0fa);
+}
+
+/* ==================== LAYOUT ==================== */
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* ==================== SIDEBAR ==================== */
+.sidebar {
+  width: 240px;
+  background: #1e293b;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  flex-shrink: 0; /* Importante para que no se encoja */
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0 0;
+}
+
+.menu li {
+  padding: 12px 15px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.menu li.active {
+  background: #3b82f6;
+}
+
+.logout button {
+  width: 100%;
+  padding: 10px;
+  background: #ef4444;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ==================== MAIN CONTENT ==================== */
+.main-content {
+  flex: 1;
+  padding: 35px 30px;
+  overflow-y: auto;
+}
+
+#bienvenida {
+  display: none;
+}
+
+/* ==================== WELCOME CARD ==================== */
+.welcome-card {
+  background: white;
+  border-radius: 20px;
+  padding: 28px 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 32px;
+  border: 1px solid #e2e8f0;
+}
+
+.welcome-card h2 {
+  margin: 0 0 6px 0;
+  font-size: 2.35rem;
+  font-weight: 700;
+  color: #1e2937;
+}
+
+.welcome-card h2 span {
+  color: #3b82f6;
+}
+
+.welcome-card h4 {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* ==================== GRID ==================== */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ==================== TOOL CARD ==================== */
+.tool-card {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.35s ease;
+  position: relative;
+  cursor: pointer;
+  height: 100%;
+}
+
+.tool-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.tool-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 30px;
+  z-index: 10;
+}
+
+.favorite {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: white;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  z-index: 10;
+}
+
+.card-body {
+  padding: 22px;
+}
+
+.card-body h5 {
+  margin: 0 0 8px 0;
+  font-size: 1.23rem;
+  font-weight: 700;
+  color: #1e2937;
+}
+
+.card-body .desc {
+  color: #64748b;
+  font-size: 0.94rem;
+  margin-bottom: 14px;
+}
+
+.price-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.current-price {
+  font-size: 1.42rem;
+  font-weight: 800;
+  color: #1e40af;
+}
+
+.old-price {
+  font-size: 1rem;
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+.buy-btn {
+  width: 100%;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.promo-tag {
+  margin-top: 16px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  color: white;
+  background: linear-gradient(90deg, #7c3aed, #db2777);
+}
+
+
+
+
+
+/* ==================== HOME VIEW ==================== */
+
+.welcome-home {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Tarjeta principal */
+.main-welcome-card {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  border-radius: 28px;
+  padding: 60px 50px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  margin-bottom: 50px;
+  border: 1px solid #e2e8f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-welcome-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.welcome-icon {
+  font-size: 4.5rem;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.main-welcome-card h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #1e2937;
+  margin: 0 0 20px 0;
+}
+
+.main-welcome-card .highlight {
+  color: #3b82f6;
+}
+
+.welcome-message {
+  font-size: 1.25rem;
+  color: #475569;
+  max-width: 680px;
+  margin: 0 auto 35px;
+  line-height: 1.6;
+}
+
+.quick-stats {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin: 40px 0;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #3b82f6;
+  display: block;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Botón principal */
+.start-learning-btn {
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  color: white;
+  border: none;
+  padding: 16px 48px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+}
+
+.start-learning-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.4);
+}
+
+/* Grid de tarjetas secundarias */
+.home-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.home-card {
+  background: white;
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  transition: all 0.35s ease;
+  text-align: center;
+  border: 1px solid #f1f5f9;
+}
+
+.home-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.home-card-icon {
+  font-size: 3rem;
+  margin-bottom: 18px;
+}
+
+.home-card h3 {
+  font-size: 1.45rem;
+  margin: 0 0 14px 0;
+  color: #1e2937;
+}
+
+.home-card p {
+  color: #64748b;
+  line-height: 1.55;
+}
+
+.coming-soon {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 6px 16px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 30px;
+}

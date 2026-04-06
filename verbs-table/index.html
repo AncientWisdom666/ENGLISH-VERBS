@@ -3,67 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <title>Irregular Verbs – Complete the Table</title>
-
+<link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-body{
-  background:#f8f9fa;
-}
+    /* ==================== FONDO INVERNAL + NIEVE ==================== */
+    body {
+        background: linear-gradient(135deg, #a8c0e0, #e0f0ff);
+        font-family: system-ui, -apple-system, sans-serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+    }
 
-.table-wrapper{
-  max-width:1100px;
-  margin:auto;
-}
+    /* ==================== NIEVE MEJORADA ==================== */
+    .snow-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+    }
 
-table input{
-  width:100%;
-}
+    .snow {
+        position: absolute;
+        background: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 0 6px rgba(255,255,255,0.9);
+        animation: snowfall linear infinite;
+        opacity: 0.85;
+    }
 
-input:disabled{
-  background:#e9ecef;
-  font-weight:bold;
-}
+    @keyframes snowfall {
+        0%   { transform: translateY(-100px) rotate(0deg); }
+        100% { transform: translateY(110vh) rotate(360deg); }
+    }
 
-.ok{
-  color:#198754;
-  font-weight:bold;
-}
+    /* Más cantidad de nieve */
+    .snow:nth-child(1)  { width: 8px;  height: 8px;  left: 5%;  animation-duration: 11s; animation-delay: 0s; }
+    .snow:nth-child(2)  { width: 12px; height: 12px; left: 12%; animation-duration: 16s; animation-delay: -3s; }
+    .snow:nth-child(3)  { width: 6px;  height: 6px;  left: 20%; animation-duration: 13s; animation-delay: -7s; }
+    .snow:nth-child(4)  { width: 10px; height: 10px; left: 28%; animation-duration: 19s; animation-delay: -1s; }
+    .snow:nth-child(5)  { width: 7px;  height: 7px;  left: 38%; animation-duration: 14s; animation-delay: -10s; }
+    .snow:nth-child(6)  { width: 9px;  height: 9px;  left: 45%; animation-duration: 17s; animation-delay: -5s; }
+    .snow:nth-child(7)  { width: 5px;  height: 5px;  left: 55%; animation-duration: 12s; animation-delay: -8s; }
+    .snow:nth-child(8)  { width: 11px; height: 11px; left: 65%; animation-duration: 20s; animation-delay: -2s; }
+    .snow:nth-child(9)  { width: 8px;  height: 8px;  left: 75%; animation-duration: 15s; animation-delay: -12s; }
+    .snow:nth-child(10) { width: 13px; height: 13px; left: 82%; animation-duration: 18s; animation-delay: -4s; }
+    .snow:nth-child(11) { width: 6px;  height: 6px;  left: 90%; animation-duration: 13s; animation-delay: -9s; }
 
-.bad{
-  color:#dc3545;
-  font-weight:bold;
-}
+    /* ==================== ESTILOS ORIGINALES DE LA TABLA ==================== */
+    .table-wrapper{
+      max-width:1100px;
+      margin:auto;
+    }
+
+    table input{
+      width:100%;
+    }
+
+    input:disabled{
+      background:#e9ecef;
+      font-weight:bold;
+    }
+
+    .ok{
+      color:#198754;
+      font-weight:bold;
+    }
+
+    .bad{
+      color:#dc3545;
+      font-weight:bold;
+    }
+
+    /* Contenido por encima de la nieve */
+    .table-wrapper, h2, .d-flex {
+        position: relative;
+        z-index: 2;
+    }
 </style>
 </head>
 
 <body class="p-4">
 
-<h2 class="text-center mb-4">📝 Irregular Verbs – Complete the Table</h2>
+    <!-- Contenedor de nieve -->
+    <div class="snow-container">
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+    </div>
 
-<div class="table-wrapper">
+    <h2 class="text-center mb-4">📝 Irregular Verbs – Complete the Table</h2>
 
-<table class="table table-bordered align-middle">
-<thead class="table-light">
-<tr>
-  <th>Infinitive</th>
-  <th>Past Simple</th>
-  <th>Past Participle</th>
-  <th>Spanish</th>
-</tr>
-</thead>
-<tbody id="verbsTable"></tbody>
-</table>
+    <div class="table-wrapper">
 
-<!-- ALERT DE RESULTADOS -->
-<div id="resultAlert" class="mb-3"></div>
+    <table class="table table-bordered align-middle">
+    <thead class="table-light">
+    <tr>
+      <th>Infinitive</th>
+      <th>Past Simple</th>
+      <th>Past Participle</th>
+      <th>Spanish</th>
+    </tr>
+    </thead>
+    <tbody id="verbsTable"></tbody>
+    </table>
 
-<div class="d-flex gap-2">
-  <button class="btn btn-danger w-50" onclick="checkAnswers()">Corregir</button>
-  <button class="btn btn-secondary w-50" onclick="newRound()">Nueva ronda</button>
-</div>
+    <!-- ALERT DE RESULTADOS -->
+    <div id="resultAlert" class="mb-3"></div>
 
-</div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-danger w-50" onclick="checkAnswers()">Corregir</button>
+      <button class="btn btn-secondary w-50" onclick="newRound()">Nueva ronda</button>
+    </div>
+
+    </div>
 
 <script>
 const tbody = document.getElementById("verbsTable");
