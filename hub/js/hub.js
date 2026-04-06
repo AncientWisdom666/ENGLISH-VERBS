@@ -1,5 +1,5 @@
 if (localStorage.getItem("auth") !== "true") {
-  window.location.replace("../login.html");
+  window.location.replace("../index.html");
 }
 
 document.getElementById("bienvenida").textContent =
