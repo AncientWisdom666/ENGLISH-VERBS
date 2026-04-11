@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Irregular Verbs Test</title>
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        /* ==================== FONDO INVERNAL + NIEVE ==================== */
+        body {
+            background: linear-gradient(135deg, #a8c0e0, #e0f0ff);
+            font-family: system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* ==================== NIEVE MEJORADA ==================== */
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .snow {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(255,255,255,0.9);
+            animation: snowfall linear infinite;
+            opacity: 0.85;
+        }
+
+        @keyframes snowfall {
+            0%   { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* Más cantidad de nieve */
+        .snow:nth-child(1)  { width: 8px;  height: 8px;  left: 5%;  animation-duration: 11s; animation-delay: 0s; }
+        .snow:nth-child(2)  { width: 12px; height: 12px; left: 12%; animation-duration: 16s; animation-delay: -3s; }
+        .snow:nth-child(3)  { width: 6px;  height: 6px;  left: 20%; animation-duration: 13s; animation-delay: -7s; }
+        .snow:nth-child(4)  { width: 10px; height: 10px; left: 28%; animation-duration: 19s; animation-delay: -1s; }
+        .snow:nth-child(5)  { width: 7px;  height: 7px;  left: 38%; animation-duration: 14s; animation-delay: -10s; }
+        .snow:nth-child(6)  { width: 9px;  height: 9px;  left: 45%; animation-duration: 17s; animation-delay: -5s; }
+        .snow:nth-child(7)  { width: 5px;  height: 5px;  left: 55%; animation-duration: 12s; animation-delay: -8s; }
+        .snow:nth-child(8)  { width: 11px; height: 11px; left: 65%; animation-duration: 20s; animation-delay: -2s; }
+        .snow:nth-child(9)  { width: 8px;  height: 8px;  left: 75%; animation-duration: 15s; animation-delay: -12s; }
+        .snow:nth-child(10) { width: 13px; height: 13px; left: 82%; animation-duration: 18s; animation-delay: -4s; }
+        .snow:nth-child(11) { width: 6px;  height: 6px;  left: 90%; animation-duration: 13s; animation-delay: -9s; }
+
+        /* ==================== ESTILOS ORIGINALES DEL TEST ==================== */
+        .correct {
+            border: 2px solid #198754 !important;
+            background-color: #d1e7dd !important;
+        }
+        .incorrect {
+            border: 2px solid #dc3545 !important;
+            background-color: #f8d7da !important;
+        }
+        #quiz .form-label {
+          font-weight: 600;
+        }
+
+        #quiz img {
+          object-fit: cover;
+        }
+
+        /* Contenido por encima de la nieve */
+        .container, .card {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor de nieve -->
+    <div class="snow-container">
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+    </div>
+
+    <div class="container mt-5 mb-5">
+        <div class="card shadow">
+            <div class="card-body">
+
+                <h1 class="text-center mb-4">Irregular Verbs Test</h1>
+
+                <div id="quiz"></div>
+
+                <div class="d-flex justify-content-start gap-2 mt-4">
+                    <button class="btn btn-primary" onclick="generateTest()">Nuevo Test</button>
+                    <button class="btn btn-success" onclick="checkAnswers()">Corregir</button>
+                </div>
+
+                <div id="result" class="alert alert-info mt-4 d-none"></div>
+
+            </div>
+        </div>
+    </div>
+<script src="../Init/js/auth.js"></script>
+<script>
+/* =============================
+   Imágenes por verbo (MINÚSCULAS)
+============================= */
+const verbImages = {
+  sing: "https://img.freepik.com/vector-premium/nina-canta-hermosa-cancion-escenario_97632-3975.jpg?semt=ais_hybrid&w=740&q=80",
+  sit: "https://i.pinimg.com/736x/ce/8e/c8/ce8ec86c342e65276ef8f5c2518d0498.jpg",
+  sleep: "https://static.vecteezy.com/system/resources/thumbnails/004/689/600/small/woman-sleep-fro-good-health-vector.jpg",
+  slide: "https://m.media-amazon.com/images/I/71nTgaafaLL._AC_UF1000,1000_QL80_.jpg",
+  smell: "https://qbi.uq.edu.au/files/38700/how-do-we-smell-things-1.jpg",
+  speak: "https://png.pngtree.com/png-vector/20210823/ourmid/pngtree-vector-about-the-man-speaking-with-a-speaker-png-image_3814168.jpg",
+  speed: "https://st2.depositphotos.com/1000423/7829/i/450/depositphotos_78299132-stock-photo-at-full-speed.jpg",
+  spell: "https://media.baamboozle.com/uploads/images/598757/1648537184_129624.jpeg",
+  spend: "https://static.fmgsuite.com/media/ContentFMG/variantSize/098aadea-bc3e-46a7-98a3-df4f49b4fe90.png",
+  spit: "https://assets.vivino.com/2Q9qmchDE5Sx7Azfp5d9Dbqa",
+  spread: "https://1lyk-pylaias.thess.sch.gr/wp-content/uploads/2024/01/covid19-family-safety-coronavirus.jpg",
+  stand: "https://i.pinimg.com/474x/69/79/1e/69791ea04c8538365e865fa583551f7c.jpg",
+  steal: "https://globalsymbols.com/uploads/production/image/imagefile/18248/17_18249_30325f30-0b17-41fd-a6c3-0ff604992599.png",
+  stick: "https://www.quia.com/files/quia/users/second2ndlanguage/stick.JPG",
+  swear: "https://daily.wordreference.com/wp-content/uploads/2017/09/swear1.jpg",
+  sweep: "https://globalsymbols.com/uploads/production/image/imagefile/22625/17_22626_8a895973-2f3c-4824-afdf-5244160d9970.png",
+  swim: "https://i.pinimg.com/736x/1d/42/db/1d42db9fcb829f72bc1ce62121c81c70.jpg",
+  take: "https://media.baamboozle.com/uploads/images/3562/1510414193_56691",
+  teach: "https://img.freepik.com/premium-vector/teacher-explaining-blackboard-vector-illustration_777877-14454.jpg",
+  tear: "https://i.pinimg.com/474x/24/b3/00/24b3003dd1f1dcc63c4363a51ed27ca4.jpg",
+  tell: "https://www.really-learn-english.com/image-files/fig-secret.jpg",
+  think: "https://www.thailanguagehut.com/wp-content/uploads/2011/03/Learn-thai.jpg",
+  throw: "https://i.pinimg.com/474x/d1/32/c2/d132c2ec4cd39036c7538d26a1890b1b.jpg",
+  understand: "https://globalsymbols.com/uploads/production/image/imagefile/14831/17_14832_8f9a4541-c84c-4c75-aaf3-cc1df58b7848.png",
+  wake: "https://voca-land.sgp1.cdn.digitaloceanspaces.com/0/1757657384840/c0928032.jpg",
+  wear: "https://media.baamboozle.com/uploads/images/372264/1622385257_27736.jpeg",
+  win: "https://img.freepik.com/vector-premium/little-kid-celebrating-championship-win_29937-4233.jpg",
+  write: "https://images.twinkl.co.uk/tw1n/image/private/t_630/u/ux/im-writing-crop_ver_2.jpg",
+  
+};
+
+let verbs = [];
+const TOTAL_QUESTIONS = 15;
+
+/* ================================
+   Cargar CSV
+============================= */
+fetch("verbs.csv")
+  .then(res => res.text())
+  .then(data => {
+    const rows = data.split("\n").slice(1);
+    verbs = rows
+      .map(r => r.trim())
+      .filter(r => r)
+      .map(r => {
+        const [inf, past, part, esp] = r.split(",");
+        return {
+          inf: inf.trim().toLowerCase().replace(/\s*\(.*?\)/g, ""),
+          past: past.trim().toLowerCase(),
+          part: part.trim().toLowerCase(),
+          esp: esp.trim().toLowerCase()
+        };
+      });
+    generateTest();
+  });
+
+function randomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function normalize(text) {
+  return text.toLowerCase().trim().replace(/\s+/g, " ");
+}
+
+function speak(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-US";   // inglés americano
+  utterance.rate = 0.9;      // velocidad un poco más lenta
+  speechSynthesis.speak(utterance);
+}
+
+/* =============================
+   Generar Test (CON IMÁGENES)
+============================= */
+function generateTest() {
+  const quiz = document.getElementById("quiz");
+  const result = document.getElementById("result");
+
+  result.classList.add("d-none");
+  quiz.innerHTML = `<div class="row g-4"></div>`;
+
+  const row = quiz.querySelector(".row");
+
+  for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+    const v = randomItem(verbs);
+    const type = Math.floor(Math.random() * 3);
+
+    let question = "";
+    let answer = "";
+
+    if (type === 0) {
+      question = `Pasado simple de <b>${v.inf}</b>`;
+      answer = v.past;
+    } else if (type === 1) {
+      question = `Participio pasado de <b>${v.inf}</b>`;
+      answer = v.part;
+    } else {
+      question = `Significado en español de <b>${v.inf}</b>`;
+      answer = v.esp;
+    }
+
+    const img = verbImages[v.inf];
+
+    row.innerHTML += `
+      <div class="col-12 col-md-6">
+        <div class="p-3 border rounded bg-white h-100">
+          <label class="form-label d-flex align-items-center justify-content-between">
+          <span>${i}. ${question}</span>
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary ms-2"
+                  onclick="speak('${v.inf}')"
+                  title="Escuchar pronunciación">
+            🔊
+          </button>
+        </label>
+
+          ${img ? `
+            <div class="text-center mb-2">
+              <img src="${img}" class="img-fluid rounded shadow" style="max-height:160px">
+            </div>
+          ` : ""}
+
+          <input type="text"
+          class="form-control answer"
+          data-answer="${answer}"
+          data-type="${type}"
+          data-audio="${type !== 2 ? answer : ''}">
+
+    ${type !== 2 ? `
+      <button type="button"
+              class="btn btn-sm btn-outline-primary mt-2 audio-answer"
+              onclick="speak('${answer}')"
+              title="Escuchar respuesta correcta">
+        🔊 Escuchar respuesta
+      </button>
+    ` : ""}
+
+    <div class="feedback text-danger mt-1 d-none"></div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+/* =============================
+   Corregir respuestas
+============================= */
+function checkAnswers() {
+  const inputs = document.querySelectorAll(".answer");
+  let correct = 0;
+
+  inputs.forEach(input => {
+    const user = normalize(input.value);
+    const ok = normalize(input.dataset.answer);
+    const feedback = input.nextElementSibling;
+
+    input.classList.remove("correct", "incorrect");
+    feedback.classList.add("d-none");
+
+    if (ok.split("/").includes(user)) {
+      input.classList.add("correct");
+      correct++;
+    } else {
+      input.classList.add("incorrect");
+      feedback.classList.remove("d-none");
+      feedback.innerHTML = `✔ Respuesta correcta: <b>${input.dataset.answer}</b>`;
+    }
+  });
+
+  const result = document.getElementById("result");
+  result.classList.remove("d-none");
+  result.innerHTML = `<strong>Resultado:</strong> ${correct} / ${TOTAL_QUESTIONS}`;
+}
+</script>
+
+</body>
+</html>
