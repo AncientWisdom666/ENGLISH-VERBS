@@ -1,86 +1,94 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Regular Verbs Test Spanish meaning</title>
-    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <style>
-        /* ==================== FONDO INVERNAL + NIEVE ==================== */
-        body {
-            background: linear-gradient(135deg, #a8c0e0, #e0f0ff);
-            font-family: system-ui, -apple-system, sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
+<meta charset="UTF-8">
+<title>Irregular Verbs – Complete the Table</title>
+<link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        /* ==================== NIEVE MEJORADA ==================== */
-        .snow-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
+<style>
+    /* ==================== FONDO INVERNAL + NIEVE ==================== */
+    body {
+        background: linear-gradient(135deg, #a8c0e0, #e0f0ff);
+        font-family: system-ui, -apple-system, sans-serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+    }
 
-        .snow {
-            position: absolute;
-            background: #ffffff;
-            border-radius: 50%;
-            box-shadow: 0 0 6px rgba(255,255,255,0.9);
-            animation: snowfall linear infinite;
-            opacity: 0.85;
-        }
+    /* ==================== NIEVE MEJORADA ==================== */
+    .snow-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+    }
 
-        @keyframes snowfall {
-            0%   { transform: translateY(-100px) rotate(0deg); }
-            100% { transform: translateY(110vh) rotate(360deg); }
-        }
+    .snow {
+        position: absolute;
+        background: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 0 6px rgba(255,255,255,0.9);
+        animation: snowfall linear infinite;
+        opacity: 0.85;
+    }
 
-        /* Más cantidad de nieve */
-        .snow:nth-child(1)  { width: 8px;  height: 8px;  left: 5%;  animation-duration: 11s; animation-delay: 0s; }
-        .snow:nth-child(2)  { width: 12px; height: 12px; left: 12%; animation-duration: 16s; animation-delay: -3s; }
-        .snow:nth-child(3)  { width: 6px;  height: 6px;  left: 20%; animation-duration: 13s; animation-delay: -7s; }
-        .snow:nth-child(4)  { width: 10px; height: 10px; left: 28%; animation-duration: 19s; animation-delay: -1s; }
-        .snow:nth-child(5)  { width: 7px;  height: 7px;  left: 38%; animation-duration: 14s; animation-delay: -10s; }
-        .snow:nth-child(6)  { width: 9px;  height: 9px;  left: 45%; animation-duration: 17s; animation-delay: -5s; }
-        .snow:nth-child(7)  { width: 5px;  height: 5px;  left: 55%; animation-duration: 12s; animation-delay: -8s; }
-        .snow:nth-child(8)  { width: 11px; height: 11px; left: 65%; animation-duration: 20s; animation-delay: -2s; }
-        .snow:nth-child(9)  { width: 8px;  height: 8px;  left: 75%; animation-duration: 15s; animation-delay: -12s; }
-        .snow:nth-child(10) { width: 13px; height: 13px; left: 82%; animation-duration: 18s; animation-delay: -4s; }
-        .snow:nth-child(11) { width: 6px;  height: 6px;  left: 90%; animation-duration: 13s; animation-delay: -9s; }
+    @keyframes snowfall {
+        0%   { transform: translateY(-100px) rotate(0deg); }
+        100% { transform: translateY(110vh) rotate(360deg); }
+    }
 
-        /* ==================== ESTILOS ORIGINALES DEL TEST ==================== */
-        .correct {
-            border: 2px solid #198754 !important;
-            background-color: #d1e7dd !important;
-        }
-        .incorrect {
-            border: 2px solid #dc3545 !important;
-            background-color: #f8d7da !important;
-        }
-        #quiz .form-label {
-          font-weight: 600;
-        }
+    /* Más cantidad de nieve */
+    .snow:nth-child(1)  { width: 8px;  height: 8px;  left: 5%;  animation-duration: 11s; animation-delay: 0s; }
+    .snow:nth-child(2)  { width: 12px; height: 12px; left: 12%; animation-duration: 16s; animation-delay: -3s; }
+    .snow:nth-child(3)  { width: 6px;  height: 6px;  left: 20%; animation-duration: 13s; animation-delay: -7s; }
+    .snow:nth-child(4)  { width: 10px; height: 10px; left: 28%; animation-duration: 19s; animation-delay: -1s; }
+    .snow:nth-child(5)  { width: 7px;  height: 7px;  left: 38%; animation-duration: 14s; animation-delay: -10s; }
+    .snow:nth-child(6)  { width: 9px;  height: 9px;  left: 45%; animation-duration: 17s; animation-delay: -5s; }
+    .snow:nth-child(7)  { width: 5px;  height: 5px;  left: 55%; animation-duration: 12s; animation-delay: -8s; }
+    .snow:nth-child(8)  { width: 11px; height: 11px; left: 65%; animation-duration: 20s; animation-delay: -2s; }
+    .snow:nth-child(9)  { width: 8px;  height: 8px;  left: 75%; animation-duration: 15s; animation-delay: -12s; }
+    .snow:nth-child(10) { width: 13px; height: 13px; left: 82%; animation-duration: 18s; animation-delay: -4s; }
+    .snow:nth-child(11) { width: 6px;  height: 6px;  left: 90%; animation-duration: 13s; animation-delay: -9s; }
 
-        #quiz img {
-          object-fit: cover;
-        }
+    /* ==================== ESTILOS ORIGINALES DE LA TABLA ==================== */
+    .table-wrapper{
+      max-width:1100px;
+      margin:auto;
+    }
 
-        /* Contenido por encima de la nieve */
-        .container, .card {
-            position: relative;
-            z-index: 2;
-        }
-    </style>
+    table input{
+      width:100%;
+    }
+
+    input:disabled{
+      background:#e9ecef;
+      font-weight:bold;
+    }
+
+    .ok{
+      color:#198754;
+      font-weight:bold;
+    }
+
+    .bad{
+      color:#dc3545;
+      font-weight:bold;
+    }
+
+    /* Contenido por encima de la nieve */
+    .table-wrapper, h2, .d-flex {
+        position: relative;
+        z-index: 2;
+    }
+</style>
 </head>
-<body>
+
+<body class="p-4">
 
     <!-- Contenedor de nieve -->
     <div class="snow-container">
@@ -97,193 +105,137 @@
         <div class="snow"></div>
     </div>
 
-    <div class="container mt-5 mb-5">
-        <div class="card shadow">
-            <div class="card-body">
+    <h2 class="text-center mb-4">📝 Irregular Verbs – Complete the Table</h2>
 
-                <h1 class="text-center mb-4">Regular Verbs Test - Spanish meaning</h1>
+    <div class="table-wrapper">
 
-                <div id="quiz"></div>
+    <table class="table table-bordered align-middle">
+    <thead class="table-light">
+    <tr>
+      <th>Infinitive</th>
+      <th>Past Simple</th>
+      <th>Past Participle</th>
+      <th>Spanish</th>
+    </tr>
+    </thead>
+    <tbody id="verbsTable"></tbody>
+    </table>
 
-                <div class="d-flex justify-content-start gap-2 mt-4">
-                    <button class="btn btn-primary" onclick="generateTest()">Nuevo Test</button>
-                    <button class="btn btn-success" onclick="checkAnswers()">Corregir</button>
-                </div>
+    <!-- ALERT DE RESULTADOS -->
+    <div id="resultAlert" class="mb-3"></div>
 
-                <div id="result" class="alert alert-info mt-4 d-none"></div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-danger w-50" onclick="checkAnswers()">Corregir</button>
+      <button class="btn btn-secondary w-50" onclick="newRound()">Nueva ronda</button>
+    </div>
 
-            </div>
-        </div>
     </div>
 <script src="../Init/js/auth.js"></script>
 <script>
-/* =============================
-   Imágenes por verbo (MINÚSCULAS)
-============================= */
-const verbImages = {
-    
-    accept:"https://png.pngtree.com/png-vector/20221227/ourmid/pngtree-accept-button-png-image_6539111.png",
-    count:"https://cdn.langeek.co/photo/61376/original/?type=jpeg",
-    date:"https://cdn-icons-png.flaticon.com/512/6324/6324346.png",
-    end:"https://media.istockphoto.com/id/675942300/es/vector/teatro-de-la-pel%C3%ADcula-con-el-texto-de-the-end-en-la-pantalla-en-blanco-cortinas-rojas-y-sillas.jpg?s=612x612&w=0&k=20&c=VAmLnQkkHqTcnJUPh_sSxT1sFCKq1AHanEfCw9W8Ats=",
-    expect:"https://img.freepik.com/free-photo/close-up-hopeful-smiling-woman-making-wish-dreaming-white-background_176420-30954.jpg?semt=ais_hybrid&w=740&q=80",
-    intend:"https://media.istockphoto.com/id/1186357197/vector/the-dream-of-university-students-nearing-graduation-planning-future-life.jpg?s=612x612&w=0&k=20&c=jVT7TASCZbvq_b9HSqTUzMHeTP9wpnBUDpbrHOsppmU=",
-    need:"https://cdni.iconscout.com/illustration/premium/thumb/feeding-poor-illustration-svg-download-png-3581623.png",
-    plant:"https://media.istockphoto.com/id/1181366400/photo/in-the-hands-of-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-on.webp?b=1&s=612x612&w=0&k=20&c=FiJ1Y22CEv7fgiQSR6zvYpo9wDe_upE6FS5d7vYKXUI=",
-    point:"https://t4.ftcdn.net/jpg/05/76/09/03/360_F_576090330_Onng58BcerQoYYf00CiSNz8DPIkROA1K.jpg",
-    rent:"https://img.freepik.com/vector-gratis/fondo-concepto-casa-alquiler_23-2147779983.jpg?semt=ais_hybrid&w=740&q=80",
-    repeat:"https://media.istockphoto.com/id/1818007849/photo/move-in-a-circle-without-stopping-or-a-goal-concept-of-perpetual-movement-or-a-cycle-with-no.jpg?s=612x612&w=0&k=20&c=JyXKUs0LoVgmqr0hy7W9MZt8uTLAe1wzuNp1tfUSrd8=",
-    resist:"https://img.freepik.com/vector-premium/hombre-negocios-resistiendo-golpes-maquinas-boxeo-juguete-ambos-lados_466036-2534.jpg",
-    start:"https://media.baamboozle.com/uploads/images/175689/1604949659_28215",
-    visit:"https://cdn.langeek.co/photo/49141/original/?type=jpeg",
-    wait:"https://globalsymbols.com/uploads/production/image/imagefile/44726/17_44727_4fef1099-5827-4a28-889b-cbb61af55163.png",
-    want:"https://i.pinimg.com/474x/d8/73/c5/d873c5f1bbe628cf40cd6b2ce29b341e.jpg",
-    ask:"https://globalsymbols.com/uploads/production/image/imagefile/18927/17_18928_00244e06-7db0-4dee-9b7a-4b657814e067.png",
-    cook:"https://media.baamboozle.com/uploads/images/77726/1617136013_37837.png",
-    dance:"https://i.pinimg.com/564x/e4/95/f1/e495f1d29bb2a1fca24353c1a6f1cc27.jpg",
-    dress:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjR-zziu4ZKWTW2DfQIA0LUl43QgG05_4-PhwNjehlWYt73X0-6iU6V3kMdIKJhgAP-H9MgO39QsBPwvMjt4mkoXTfIAHr6ywgbLWXcZ5CnLj7EXGcvUjS6j8uexy1t3Wda0w-yl3YRTwrs/s1600/get_dressed.jpg",
-    erase:"https://globalsymbols.com/uploads/production/image/imagefile/15358/17_15359_bc1be4f7-0711-41f6-a2bf-5864f0b00dc3.png",
-    finish:"https://www.clipartmax.com/png/middle/132-1322155_once-upon-a-time-i-was-a-newly-licensed-salesperson-finish-verb.png",
-    help:"https://voca-land.sgp1.cdn.digitaloceanspaces.com/0/1757686090161/ae0f7d9e.jpg",
-    jump:"https://tomi-digital-resources.storage.googleapis.com/images/classes/resources/rsc-275308-5f31fc824b84a.jpeg",
-    like:"https://avi.cuaed.unam.mx/uapa/avi/ing_3/U_3/ing3_u3_t2/img/t9_imagen2.png",
-    look:"https://www.200words-a-day.com/images/mirar.gif",
-    miss:"https://media.istockphoto.com/id/878686726/pl/wektor/poj%C4%99cie-sp%C3%B3%C5%BAnienia.jpg?s=612x612&w=0&k=20&c=2VOlCfyYzprz5R2K27kb16Sqod18ipIy1-GGBgrRb54=",
-    practice:"https://media.baamboozle.com/uploads/images/291312/1634441515_18244.png",
-    push:"https://media.baamboozle.com/uploads/images/96169/1611681220_50314",
-    shop:"https://i.pinimg.com/originals/2e/31/0d/2e310d22b0b382ebc5f838e202988e00.png",
-    smoke:"https://globalsymbols.com/uploads/production/image/imagefile/5717/13_5717_4616c841-b8b0-40a6-b958-a3284d883b8d.svg",
-    stop:"https://img.freepik.com/vector-premium/chico-lindo-haciendo-gesto-parada-senal-trafico-senal-stop_679557-951.jpg",
-    talk:"https://cdn.teachoo.com/d86c12f4-b52f-49a1-a8e2-bbf676ba97b1/speak.jpg",
-    use:"https://img.freepik.com/free-vector/boy-using-tablet-cartoon-character_1308-117316.jpg?w=360",
-    walk:"https://media.baamboozle.com/uploads/images/768078/1657233138_26231.jpeg",
-    wash:"https://www.quia.com/files/quia/users/jmdeming/Action-Verbs/Wash-Dishes",
-    wish:"https://clipart-library.com/8300/1931/lovepik-holiday-wishing-girl-receiving-gifts-png-image_401734351_wh1200.png",
-    work:"https://media.baamboozle.com/uploads/images/52192/1589215777_183567",
-    
-};
+const tbody = document.getElementById("verbsTable");
+const alertBox = document.getElementById("resultAlert");
 
-let verbs = [];
-const TOTAL_QUESTIONS = 15;
+let allVerbs = [];
+const ROUND_SIZE = 10;
 
-/* ================================
-   Cargar CSV
-============================= */
+/* =========================
+   CARGA INICIAL DEL CSV
+========================= */
 fetch("verbs.csv")
   .then(res => res.text())
-  .then(data => {
-    const rows = data.split("\n").slice(1);
-    verbs = rows
-      .map(r => r.trim())
-      .filter(r => r)
-      .map(r => {
-        const [inf, past, part, esp] = r.split(",");
-        return {
-          inf: inf.trim().toLowerCase().replace(/\s*\(.*?\)/g, ""),
-          past: past.trim().toLowerCase(),
-          part: part.trim().toLowerCase(),
-          esp: esp.trim().toLowerCase()
-        };
-      });
-    generateTest();
+  .then(text => {
+    const rows = text.trim().split("\n").slice(1);
+    allVerbs = rows.map(line => line.split(","));
+    newRound();
   });
 
-function randomItem(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+/* =========================
+   UTILIDADES
+========================= */
+function shuffle(array){
+  return array.sort(() => Math.random() - 0.5);
 }
 
-function normalize(text) {
-  return text.toLowerCase().trim().replace(/\s+/g, " ");
+function normalize(t){
+  return t.toLowerCase().trim();
 }
 
-function speak(word) {
-  const utterance = new SpeechSynthesisUtterance(word);
-  utterance.lang = "en-US";   // inglés americano
-  utterance.rate = 0.9;      // velocidad un poco más lenta
-  speechSynthesis.speak(utterance);
+/* =========================
+   NUEVA RONDA
+========================= */
+function newRound(){
+  tbody.innerHTML = "";
+  alertBox.innerHTML = "";
+
+  const roundVerbs = shuffle([...allVerbs]).slice(0, ROUND_SIZE);
+
+  roundVerbs.forEach(([inf, past, part, spa]) => {
+
+    const values = ["", "", spa];
+
+    tbody.innerHTML += `
+    <tr data-past="${past}" data-part="${part}" data-spa="${spa}">
+      <td><strong>${inf}</strong></td>
+      ${values.map(v => `
+        <td>
+          <input class="form-control" value="${v}" ${v ? "disabled" : ""}>
+          <div></div>
+        </td>
+      `).join("")}
+    </tr>`;
+  });
 }
 
+/* =========================
+   CORREGIR RESPUESTAS
+========================= */
+function checkAnswers(){
+  let totalVerbs = 0;
+  let completedVerbs = 0;
 
-/* =============================
-   Generar Test - SOLO SIGNIFICADO
-============================= */
-function generateTest() {
-  const quiz = document.getElementById("quiz");
-  const result = document.getElementById("result");
+  document.querySelectorAll("#verbsTable tr").forEach(row => {
+    totalVerbs++;
+    let rowCorrect = true;
 
-  result.classList.add("d-none");
-  quiz.innerHTML = `<div class="row g-4"></div>`;
+    const correct = [
+      row.dataset.past,
+      row.dataset.part,
+      row.dataset.spa
+    ];
 
-  const row = quiz.querySelector(".row");
+    row.querySelectorAll("td").forEach((td,i) => {
+      if(i === 0) return;
 
-  for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
-    const v = randomItem(verbs);
+      const input = td.querySelector("input");
+      const feedback = td.querySelector("div");
 
-    // Solo preguntamos el significado en español
-    const question = `¿Cuál es el significado en español de <b>${v.inf}</b>?`;
-    const answer = v.esp;
+      if(input.disabled){
+        feedback.innerHTML = `<span class="ok">✔ Correcto</span>`;
+        return;
+      }
 
-    const img = verbImages[v.inf];
+      const user = normalize(input.value);
+      const answer = correct[i-1];
 
-    row.innerHTML += `
-      <div class="col-12 col-md-6">
-        <div class="p-3 border rounded bg-white h-100">
-          <label class="form-label d-flex align-items-center justify-content-between">
-            <span>${i}. ${question}</span>
-            <button type="button"
-                    class="btn btn-sm btn-outline-secondary ms-2"
-                    onclick="speak('${v.inf}')"
-                    title="Escuchar pronunciación">
-              🔊
-            </button>
-          </label>
+      const ok = answer.includes("/")
+        ? answer.split("/").some(v => normalize(v) === user)
+        : normalize(answer) === user;
 
-          ${img ? `
-            <div class="text-center mb-2">
-              <img src="${img}" class="img-fluid rounded shadow" style="max-height:160px">
-            </div>
-          ` : ""}
+      if(ok){
+        feedback.innerHTML = `<span class="ok">✔ Correcto</span>`;
+      } else {
+        feedback.innerHTML = `<span class="bad">✘ ${answer}</span>`;
+        rowCorrect = false;
+      }
+    });
 
-          <input type="text"
-                 class="form-control answer"
-                 data-answer="${answer}"
-                 placeholder="Escribe el significado en español...">
-
-          <div class="feedback text-danger mt-1 d-none"></div>
-        </div>
-      </div>
-    `;
-  }
-}
-
-/* =============================
-   Corregir respuestas
-============================= */
-function checkAnswers() {
-  const inputs = document.querySelectorAll(".answer");
-  let correct = 0;
-
-  inputs.forEach(input => {
-    const user = normalize(input.value);
-    const ok = normalize(input.dataset.answer);
-    const feedback = input.nextElementSibling;
-
-    input.classList.remove("correct", "incorrect");
-    feedback.classList.add("d-none");
-
-    if (ok.split("/").includes(user)) {
-      input.classList.add("correct");
-      correct++;
-    } else {
-      input.classList.add("incorrect");
-      feedback.classList.remove("d-none");
-      feedback.innerHTML = `✔ Respuesta correcta: <b>${input.dataset.answer}</b>`;
-    }
+    if(rowCorrect) completedVerbs++;
   });
 
-  const result = document.getElementById("result");
-  result.classList.remove("d-none");
-  result.innerHTML = `<strong>Resultado:</strong> ${correct} / ${TOTAL_QUESTIONS}`;
+  alertBox.innerHTML = `
+  <div class="alert alert-info text-center" role="alert">
+    ✅ Completaste correctamente <strong>${completedVerbs}</strong> de <strong>${totalVerbs}</strong> verbos
+  </div>`;
 }
 </script>
 
