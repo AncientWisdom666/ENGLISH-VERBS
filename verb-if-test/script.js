@@ -78,7 +78,7 @@ let banco = [
     {
         type: "build",
         question: "Forma una oración en Zero Conditional con estas palabras:",
-        words: ["you", "watch TV", "you learn English"],
+        words: ["you", "watch TV in English", "you learn English"],
         answer: "If you watch TV in English, you learn English."
     },
     {
