@@ -174,15 +174,33 @@ function newRound(){
     const values = ["", "", spa];
 
     tbody.innerHTML += `
-    <tr data-past="${past}" data-part="${part}" data-spa="${spa}">
-      <td><strong>${inf}</strong></td>
-      ${values.map(v => `
+        <tr data-inf="${inf}" data-past="${past}" data-part="${part}" data-spa="${spa}">
+        
+        <!-- Infinitive (input vacío) -->
         <td>
-          <input class="form-control" value="${v}" ${v ? "disabled" : ""}>
-          <div></div>
+            <input class="form-control">
+            <div></div>
         </td>
-      `).join("")}
-    </tr>`;
+
+        <!-- Past Simple -->
+        <td>
+            <input class="form-control">
+            <div></div>
+        </td>
+
+        <!-- Past Participle -->
+        <td>
+            <input class="form-control">
+            <div></div>
+        </td>
+
+        <!-- Spanish (bloqueado) -->
+        <td>
+            <input class="form-control" value="${spa}" disabled>
+            <div></div>
+        </td>
+
+        </tr>`;
   });
 }
 
@@ -198,35 +216,33 @@ function checkAnswers(){
     let rowCorrect = true;
 
     const correct = [
-      row.dataset.past,
-      row.dataset.part,
-      row.dataset.spa
+    row.dataset.inf,
+    row.dataset.past,
+    row.dataset.part,
+    row.dataset.spa
     ];
 
     row.querySelectorAll("td").forEach((td,i) => {
-      if(i === 0) return;
 
-      const input = td.querySelector("input");
-      const feedback = td.querySelector("div");
+    // ❌ ignorar columna Spanish (índice 3)
+    if(i === 3) return;
 
-      if(input.disabled){
-        feedback.innerHTML = `<span class="ok">✔ Correcto</span>`;
-        return;
-      }
+    const input = td.querySelector("input");
+    const feedback = td.querySelector("div");
 
-      const user = normalize(input.value);
-      const answer = correct[i-1];
+    const user = normalize(input.value);
+    const answer = normalize(correct[i]);
 
-      const ok = answer.includes("/")
+    const ok = answer.includes("/")
         ? answer.split("/").some(v => normalize(v) === user)
-        : normalize(answer) === user;
+        : answer === user;
 
-      if(ok){
+    if(ok){
         feedback.innerHTML = `<span class="ok">✔ Correcto</span>`;
-      } else {
-        feedback.innerHTML = `<span class="bad">✘ ${answer}</span>`;
+    } else {
+        feedback.innerHTML = `<span class="bad">✘ ${correct[i]}</span>`;
         rowCorrect = false;
-      }
+    }
     });
 
     if(rowCorrect) completedVerbs++;
