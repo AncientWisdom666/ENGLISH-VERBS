@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Regular Verbs Test</title>
+    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        /* ==================== FONDO INVERNAL + NIEVE ==================== */
+        body {
+            background: linear-gradient(135deg, #a8c0e0, #e0f0ff);
+            font-family: system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* ==================== NIEVE MEJORADA ==================== */
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .snow {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(255,255,255,0.9);
+            animation: snowfall linear infinite;
+            opacity: 0.85;
+        }
+
+        @keyframes snowfall {
+            0%   { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* Más cantidad de nieve */
+        .snow:nth-child(1)  { width: 8px;  height: 8px;  left: 5%;  animation-duration: 11s; animation-delay: 0s; }
+        .snow:nth-child(2)  { width: 12px; height: 12px; left: 12%; animation-duration: 16s; animation-delay: -3s; }
+        .snow:nth-child(3)  { width: 6px;  height: 6px;  left: 20%; animation-duration: 13s; animation-delay: -7s; }
+        .snow:nth-child(4)  { width: 10px; height: 10px; left: 28%; animation-duration: 19s; animation-delay: -1s; }
+        .snow:nth-child(5)  { width: 7px;  height: 7px;  left: 38%; animation-duration: 14s; animation-delay: -10s; }
+        .snow:nth-child(6)  { width: 9px;  height: 9px;  left: 45%; animation-duration: 17s; animation-delay: -5s; }
+        .snow:nth-child(7)  { width: 5px;  height: 5px;  left: 55%; animation-duration: 12s; animation-delay: -8s; }
+        .snow:nth-child(8)  { width: 11px; height: 11px; left: 65%; animation-duration: 20s; animation-delay: -2s; }
+        .snow:nth-child(9)  { width: 8px;  height: 8px;  left: 75%; animation-duration: 15s; animation-delay: -12s; }
+        .snow:nth-child(10) { width: 13px; height: 13px; left: 82%; animation-duration: 18s; animation-delay: -4s; }
+        .snow:nth-child(11) { width: 6px;  height: 6px;  left: 90%; animation-duration: 13s; animation-delay: -9s; }
+
+        /* ==================== ESTILOS ORIGINALES DEL TEST ==================== */
+        .correct {
+            border: 2px solid #198754 !important;
+            background-color: #d1e7dd !important;
+        }
+        .incorrect {
+            border: 2px solid #dc3545 !important;
+            background-color: #f8d7da !important;
+        }
+        #quiz .form-label {
+          font-weight: 600;
+        }
+
+        #quiz img {
+          object-fit: cover;
+        }
+
+        /* Contenido por encima de la nieve */
+        .container, .card {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor de nieve -->
+    <div class="snow-container">
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+        <div class="snow"></div>
+    </div>
+
+    <div class="container mt-5 mb-5">
+        <div class="card shadow">
+            <div class="card-body">
+
+                <h1 class="text-center mb-4">Regular Verbs Test</h1>
+
+                <div id="quiz"></div>
+
+                <div class="d-flex justify-content-start gap-2 mt-4">
+                    <button class="btn btn-primary" onclick="generateTest()">Nuevo Test</button>
+                    <button class="btn btn-success" onclick="checkAnswers()">Corregir</button>
+                </div>
+
+                <div id="result" class="alert alert-info mt-4 d-none"></div>
+
+            </div>
+        </div>
+    </div>
+<script src="../Init/js/auth.js"></script>
+<script>
+/* =============================
+   Imágenes por verbo (MINÚSCULAS)
+============================= */
+const verbImages = {
+    
+    answer:"https://st.depositphotos.com/1695366/1398/v/450/depositphotos_13984100-stock-illustration-cartoon-eager-student.jpg",
+    arrive:"https://media.baamboozle.com/uploads/images/102777/1622085880_21899.jpeg",
+    belong:"https://media.licdn.com/dms/image/v2/C5112AQHxQZu61AVIhg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1535456990443?e=2147483647&v=beta&t=XqPsUbyorYqrihVmu2DKp2_efyhz3I3a1PyHfJIIMrE",
+    change:"https://globalsymbols.com/uploads/production/image/imagefile/23614/17_23615_107de73b-8fa9-4e78-bf68-4bddf9db594f.png",
+    clean:"https://media.baamboozle.com/uploads/images/146029/1634856473_26795_url.jpeg",
+    climb:"https://thumbs.dreamstime.com/b/cartoon-happy-boy-climbing-rock-illustration-133416320.jpg",
+    close:"https://d18vdu4p71yql0.cloudfront.net/libraries/tawasol/Close%20the%20door%20(M)_1.png",
+    consider:"https://media.dolenglish.vn/PUBLIC/MEDIA/c4218b6d-fde7-4b71-b169-7efe014f9368.png",
+    dare:"https://cdn.langeek.co/photo/56296/original/dare-need?type=png",
+    deliver:"https://imgproxy.divecdn.com/Lji8gsZxt9JsUjWRYRiKn_e7QdEwc8WMFG1-GxOPTD8/g:ce/rs:fill:1200:675:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0xMjIxMTAxOTM5LmpwZw==.webp",
+    enjoy:"https://media.baamboozle.com/uploads/images/519540/1648066390_13877.jpeg",
+    fill:"https://i.ytimg.com/vi/stIXRHTaaOM/maxresdefault.jpg",
+    follow:"https://do2learn.com/picturecards/images/imageschedule/follow_l.gif",
+    hurry:"https://examtimeassets.s3.amazonaws.com/uploads/media/image/13387567/desktop_10a878d2-9d9a-4b76-92f3-013f324ffbf8.png",
+    learn:"https://www.thoughtco.com/thmb/qZKPAHf9VhwdtCTlrsugb18NPf0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-581697301-58dc9f7b5f9b584683f5d1b7.jpg",
+    listen:"https://cosasycositasdeinglesblog.wordpress.com/wp-content/uploads/2017/01/captura-de-pantalla-2017-02-06-a-las-4-32-27-p-m.png?w=352",
+    live:"https://media.baamboozle.com/uploads/images/337921/1631034978_80455.jpeg",
+    love:"https://i.pinimg.com/474x/92/29/b7/9229b728f4b32c376cc3ef340c36496e.jpg",
+    name:"https://media.baamboozle.com/uploads/images/1653973/3058f4aa-7573-419b-983e-3640926f1de1-thumbnail.png",
+    open:"https://media.baamboozle.com/uploads/images/399659/1623358386_12720.jpeg",
+    order:"https://www.inglesmundial.com/palabras/order.jpg",
+    plan:"https://d1pra95f92lrn3.cloudfront.net/media/thumb/21984_fit512.jpg",
+    play:"https://media.baamboozle.com/uploads/images/291312/1634440648_49345.jpeg",
+    rain:"https://media.baamboozle.com/uploads/images/282072/1636069338_63749_url.jpeg",
+    remember:"https://www.shutterstock.com/image-vector/cute-asian-kid-thinking-search-600nw-2146471075.jpg",
+    show:"https://advancedenglishforprofessionals.com/verbs2/images/show.gif",
+    stay:"https://img.freepik.com/vector-premium/trabajo-casa-forma-remota-tipo-trabajo-distancia_102902-7198.jpg",
+    study:"https://us.123rf.com/450wm/miniwide/miniwide2108/miniwide210800018/172561213-a-man-is-reading-a-book-at-his-desk-with-books-stacked-next-to-him-outline-simple-vector.jpg",
+    travel:"https://media.baamboozle.com/uploads/images/411561/1633906043_10082.jpeg",
+    try:"https://media.baamboozle.com/uploads/images/1653973/27d19535-817a-4656-97c1-22bdbe05d93e-thumbnail.jpeg",
+    turn:"https://media.baamboozle.com/uploads/images/104304/1610458360_16778"
+    
+};
+
+let verbs = [];
+const TOTAL_QUESTIONS = 15;
+
+/* ================================
+   Cargar CSV
+============================= */
+fetch("verbs.csv")
+  .then(res => res.text())
+  .then(data => {
+    const rows = data.split("\n").slice(1);
+    verbs = rows
+      .map(r => r.trim())
+      .filter(r => r)
+      .map(r => {
+        const [inf, past, part, esp] = r.split(",");
+        return {
+          inf: inf.trim().toLowerCase().replace(/\s*\(.*?\)/g, ""),
+          past: past.trim().toLowerCase(),
+          part: part.trim().toLowerCase(),
+          esp: esp.trim().toLowerCase()
+        };
+      });
+    generateTest();
+  });
+
+function randomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function normalize(text) {
+  return text.toLowerCase().trim().replace(/\s+/g, " ");
+}
+
+function speak(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-US";   // inglés americano
+  utterance.rate = 0.9;      // velocidad un poco más lenta
+  speechSynthesis.speak(utterance);
+}
+
+/* =============================
+   Generar Test (CON IMÁGENES)
+============================= */
+function generateTest() {
+  const quiz = document.getElementById("quiz");
+  const result = document.getElementById("result");
+
+  result.classList.add("d-none");
+  quiz.innerHTML = `<div class="row g-4"></div>`;
+
+  const row = quiz.querySelector(".row");
+
+  for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+    const v = randomItem(verbs);
+    const type = Math.floor(Math.random() * 3);
+
+    let question = "";
+    let answer = "";
+
+    if (type === 0) {
+      question = `Pasado simple de <b>${v.inf}</b>`;
+      answer = v.past;
+    } else if (type === 1) {
+      question = `Participio pasado de <b>${v.inf}</b>`;
+      answer = v.part;
+    } else {
+      question = `Significado en español de <b>${v.inf}</b>`;
+      answer = v.esp;
+    }
+
+    const img = verbImages[v.inf];
+
+    row.innerHTML += `
+      <div class="col-12 col-md-6">
+        <div class="p-3 border rounded bg-white h-100">
+          <label class="form-label d-flex align-items-center justify-content-between">
+          <span>${i}. ${question}</span>
+          <button type="button"
+                  class="btn btn-sm btn-outline-secondary ms-2"
+                  onclick="speak('${v.inf}')"
+                  title="Escuchar pronunciación">
+            🔊
+          </button>
+        </label>
+
+          ${img ? `
+            <div class="text-center mb-2">
+              <img src="${img}" class="img-fluid rounded shadow" style="max-height:160px">
+            </div>
+          ` : ""}
+
+          <input type="text"
+          class="form-control answer"
+          data-answer="${answer}"
+          data-type="${type}"
+          data-audio="${type !== 2 ? answer : ''}">
+
+    ${type !== 2 ? `
+      <button type="button"
+              class="btn btn-sm btn-outline-primary mt-2 audio-answer"
+              onclick="speak('${answer}')"
+              title="Escuchar respuesta correcta">
+        🔊 Escuchar respuesta
+      </button>
+    ` : ""}
+
+    <div class="feedback text-danger mt-1 d-none"></div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+/* =============================
+   Corregir respuestas
+============================= */
+function checkAnswers() {
+  const inputs = document.querySelectorAll(".answer");
+  let correct = 0;
+
+  inputs.forEach(input => {
+    const user = normalize(input.value);
+    const ok = normalize(input.dataset.answer);
+    const feedback = input.nextElementSibling;
+
+    input.classList.remove("correct", "incorrect");
+    feedback.classList.add("d-none");
+
+    if (ok.split("/").includes(user)) {
+      input.classList.add("correct");
+      correct++;
+    } else {
+      input.classList.add("incorrect");
+      feedback.classList.remove("d-none");
+      feedback.innerHTML = `✔ Respuesta correcta: <b>${input.dataset.answer}</b>`;
+    }
+  });
+
+  const result = document.getElementById("result");
+  result.classList.remove("d-none");
+  result.innerHTML = `<strong>Resultado:</strong> ${correct} / ${TOTAL_QUESTIONS}`;
+}
+</script>
+
+</body>
+</html>
